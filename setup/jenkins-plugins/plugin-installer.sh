@@ -27,4 +27,4 @@ done < plugins.txt
 # }
 
 
-#### Check for updates/errors - http://localhost:8080/updateCenter
+#### Check for updates/errors - http://<jenkins-url>/updateCenter
