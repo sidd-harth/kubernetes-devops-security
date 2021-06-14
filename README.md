@@ -1,8 +1,8 @@
 # kubernetes-devops-security
 
-## Clone this Repo
+## Fork and Clone this Repo
 
-## Download to Desktop
+## Clone to Desktop and VM
 
 ## NodeJS Microservice - Docker Image -
 `docker run -p 8787:5000 siddharth67/node-service:v1`
