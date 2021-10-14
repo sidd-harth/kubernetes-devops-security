@@ -1,6 +1,8 @@
 # Set Compute Zone
 
-`gcloud config set compute/zone us-central1-a`
+```
+gcloud config set compute/zone us-central1-a
+```
 
 # Create ALLOW ALL Ingress Rule
 ```
@@ -15,10 +17,14 @@ gcloud compute firewall-rules create allow-all \
 ```
 
 # Create a Static IP to use it as a GCE External IP Address
-`gcloud compute addresses create static-ip --region=us-central1`
+```
+gcloud compute addresses create static-ip --region=us-central1
+```
 
 # Fetch the Static IP 
-`gcloud compute addresses describe static-ip --region=us-central1`
+```
+gcloud compute addresses describe static-ip --region=us-central1
+```
 
 # Create GCE Instance
 ```
