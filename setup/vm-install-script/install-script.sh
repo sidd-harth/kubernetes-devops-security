@@ -69,12 +69,10 @@ mvn -v
 
 
 echo ".........----------------#################._.-.-JENKINS-.-._.#################----------------........."
-sudo apt update
 wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt update
 sudo apt install -y jenkins
-sleep 15s
-sudo apt install -y --allow-downgrades jenkins=2.289.1
 systemctl daemon-reload
 systemctl enable jenkins
 sudo systemctl start jenkins
