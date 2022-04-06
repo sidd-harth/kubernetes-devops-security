@@ -46,9 +46,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			
-		</plugins>
-	</build>
-
 <plugin>
    <groupId>org.jacoco</groupId>
    <artifactId>jacoco-maven-plugin</artifactId>
@@ -68,5 +65,8 @@
       </execution>
    </executions>
 </plugin>
+		</plugins>
+	</build>
+
 
 </project>
