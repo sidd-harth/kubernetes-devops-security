@@ -20,6 +20,7 @@ public class NumericController {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	private static final String baseURL = "http://localhost:5000/plusone";
 	
+	
 	RestTemplate restTemplate = new RestTemplate();
 	
 	@RestController
