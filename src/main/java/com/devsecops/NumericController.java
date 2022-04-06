@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+
 @RestController
 public class NumericController {
 
@@ -21,7 +22,7 @@ public class NumericController {
 	private static final String baseURL = "http://localhost:5000/plusone";
 	
 
-	
+
 	RestTemplate restTemplate = new RestTemplate();
 	
 	@RestController
