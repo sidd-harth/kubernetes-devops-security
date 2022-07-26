@@ -26,3 +26,7 @@ bin
 .classpath
 .project
 target
+
+# idea
+.idea/
+# fdfdg
