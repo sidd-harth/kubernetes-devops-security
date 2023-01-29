@@ -26,9 +26,11 @@ pipeline {
       steps {
         withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
           sh 'printenv'
+          docker.withRegistry(<registryUrl>, <registryCredentialsId>){
           sh 'docker build -t  Devsecops9849/kubernetes-devops-security :""$GIT_COMMIT"" .'
           sh 'docker push  Devsecops9849/kubernetes-devops-security :""$GIT_COMMIT""'
         }
+      }
       }
     }
   }
