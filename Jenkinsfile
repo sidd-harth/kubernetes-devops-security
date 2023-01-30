@@ -26,7 +26,7 @@ pipeline {
       steps {
         withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
           sh 'printenv'
-          sh 'docker build -t devsecops9849/devsecopspipeline:""$GIT_COMMIT"" .'
+          sh 'docker build --tag devsecops9849/devsecopspipeline:""$GIT_COMMIT"" .'
           sh 'docker push devsecops9849/devsecopspipeline:""$GIT_COMMIT""'
         }
       }
