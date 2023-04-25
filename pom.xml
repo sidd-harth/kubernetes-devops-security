@@ -5,10 +5,9 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.1.RELEASE</version>
+		<version>2.3.5.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-
 	<groupId>com.devsecops</groupId>
 	<artifactId>numeric</artifactId>
 	<version>0.0.1</version>
@@ -81,6 +80,29 @@
          <outputFormat>XML</outputFormat>
          <outputFormat>HTML</outputFormat>
       </outputFormats>
+   </configuration>
+</plugin>
+<plugin>
+   <groupId>org.owasp</groupId>
+   <artifactId>dependency-check-maven</artifactId>
+   <version>6.1.6</version>
+   <configuration>
+      <format>ALL</format>
+      <failBuildOnCVSS>8</failBuildOnCVSS>
+      <!-- fail the build for CVSS greater than or equal to 5 -->
+      <!-- 
+			      use internal mirroring of CVE contents 
+			      Suppress files 
+			      E.g. a company-wide suppression file and local project file 
+			     -->
+      <!-- 
+			     <cveUrlModified>http://internal-mirror.mycorp.com/nvdcve-1.1-modified.json.gz</cveUrlModified>  
+			                    <cveUrlBase>http://internal-mirror.mycorp.com/nvdcve-1.1-%d.json.gz</cveUrlBase>
+			     <suppressionFiles>               
+			                        <suppressionFile>http://example.org/suppression.xml</suppressionFile>
+			                        <suppressionFile>project-suppression.xml</suppressionFile> 
+			                    </suppressionFiles> 
+			                 -->
    </configuration>
 </plugin>
 		</plugins>
