@@ -31,6 +31,16 @@ pipeline {
         }
       }
     } 
+
+  stage('SonarQube ') {
+            steps {
+              sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://ec2-18-117-129-189.us-east-2.compute.amazonaws.com:9000 -Dsonar.login=8ca2e5a6847d76e1870aabf358af459107a298df"
+            }
+        }  
+
+
+
+
          stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
