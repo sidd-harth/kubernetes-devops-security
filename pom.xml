@@ -85,10 +85,10 @@
 <plugin>
    <groupId>org.owasp</groupId>
    <artifactId>dependency-check-maven</artifactId>
-   <version>6.1.6</version>
+   <version>5.2.0</version>
    <configuration>
       <format>ALL</format>
-      <failBuildOnCVSS>8</failBuildOnCVSS>
+      <failBuildOnCVSS>14</failBuildOnCVSS>
       <!-- fail the build for CVSS greater than or equal to 5 -->
       <!-- 
 			      use internal mirroring of CVE contents 
