@@ -76,3 +76,4 @@ stage('SonarQube - SAST') {
       dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
     }
 }
+}
