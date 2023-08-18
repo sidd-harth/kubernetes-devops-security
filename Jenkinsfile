@@ -10,7 +10,7 @@ pipeline {
         }   
         stage('Unit Test') {
             steps {
-              sh "mvn clean test"
+              sh "mvn test"
             }
             post {
               always {
@@ -23,7 +23,6 @@ pipeline {
              steps {
                 withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
                    sh 'printenv'
-                   sh "ls -la target/"
                    sh 'docker build -t bcorpse/numeric-app:""$GIT_COMMIT"" .'
                    sh 'docker push bcorpse/numeric-app:""$GIT_COMMIT""'
              }
