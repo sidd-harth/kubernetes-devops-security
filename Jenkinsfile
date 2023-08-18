@@ -19,5 +19,14 @@ pipeline {
               }
             }
         } 
+        stage('Docker Build and Push') {
+             steps {
+                withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
+                   sh 'printenv'
+                   sh 'docker build -t bcorpse/numeric-app:""$GIT_COMMIT"" .'
+                   sh 'docker push bcorpse/numeric-app:""$GIT_COMMIT""'
+             }
+         }
+    } 
     }
 }
