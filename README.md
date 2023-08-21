@@ -21,3 +21,4 @@
 `chmod +x ~/install-talisman.sh`
 `cd your-git-project`
 `~/install-talisman.sh`
+## test add
