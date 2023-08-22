@@ -1,4 +1,16 @@
 fileignoreconfig:
 - filename: sec_files/file3
   checksum: a1c8618d00b59be4fba510e23115f9e8453075caee6648aa6fa4bb3d611049a9
+- filename: Jenkinsfile
+  checksum: 74ce652de26d061624d0e9605ad4c214674a3f85dc1872ec7f76ad91e1264e3f
+- filename: slack-emojis/jenkins.png
+  checksum: c6d0ecaae50fbe031baf562ed13b9f608e800c10f8b97a40a3408e557d4d4ce5
+- filename: setup/azure-vm-template/template.json
+  checksum: da043e9e5a07320ec5b51e44d0ba778b86678694973cf8f2ba3054414e3c501e
+- filename: setup/vm-install-script/install-script.sh
+  checksum: 3f6c58a3952d9a5866284deb57105d40d2d95aa07425d9d48d33619a667290a1
+- filename: kube-scan.yaml
+  checksum: 531e424a42c33adddb3611a79392a450e52aa96c6ee305ab217189ed8b7fcb08
+- filename: slack-emojis/deadpool.png
+  checksum: 9c510fba214f8e1ab385256c833ba2addae12836d549bc9d7d10d53b98ec2fa5
 version: ""
