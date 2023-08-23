@@ -35,7 +35,7 @@ pipeline {
         }
         stage('Vulnerability Scan - Docker ') {
           steps {
-            pararrel(
+            parallel(
               "Dependency Scan":{
                 sh "mvn dependency-check:check"
               },
