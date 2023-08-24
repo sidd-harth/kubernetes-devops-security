@@ -95,7 +95,7 @@ deny[msg] {
 }
 
 # Use multi-stage builds
-default multi_stage = false
+default multi_stage = true 
 multi_stage = true {
     input[i].Cmd == "copy"
     val := concat(" ", input[i].Flags)
