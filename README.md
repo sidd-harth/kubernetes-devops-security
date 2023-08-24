@@ -24,3 +24,12 @@
 `chmod +x ~/install-talisman.sh`
 `cd your-git-project`
 `~/install-talisman.sh`
+
+## Trivy Scan Image
+
+`docker run --rm -v /:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 1 --light openjdk`
+
+### OPA
+
+command for check docker permission
+`kubectl exec -it devsecops-686c546c84-9jfwp -- id`

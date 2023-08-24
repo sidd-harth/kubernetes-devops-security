@@ -2,7 +2,7 @@ fileignoreconfig:
 - filename: sec_files/file3
   checksum: a1c8618d00b59be4fba510e23115f9e8453075caee6648aa6fa4bb3d611049a9
 - filename: Jenkinsfile
-  checksum: c4efa577b4777b82dd60f344bbf70e3ae36b971f723a0afa5137573a47637d08
+  checksum: 1427a630fddfb1f0799d4136d576191f172bb23cf0ee783bf1095b7f58850d4d
 - filename: slack-emojis/jenkins.png
   checksum: c6d0ecaae50fbe031baf562ed13b9f608e800c10f8b97a40a3408e557d4d4ce5
 - filename: setup/azure-vm-template/template.json
