@@ -2,7 +2,7 @@ fileignoreconfig:
 - filename: sec_files/file3
   checksum: a1c8618d00b59be4fba510e23115f9e8453075caee6648aa6fa4bb3d611049a9
 - filename: Jenkinsfile
-  checksum: a61b868ab9d1c6db912f6fded0d6186caeaea6e2c292635218eee1b901204cc7
+  checksum: ed8e4ff9b543e520a3e9bd9d690b475839cc98b9c1551c19e19417d06f3653d2git push --set-upstream origin opa-conf-k8s
 - filename: slack-emojis/jenkins.png
   checksum: c6d0ecaae50fbe031baf562ed13b9f608e800c10f8b97a40a3408e557d4d4ce5
 - filename: setup/azure-vm-template/template.json
