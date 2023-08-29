@@ -33,3 +33,14 @@
 
 command for check docker permission
 `kubectl exec -it devsecops-686c546c84-9jfwp -- id`
+
+## K8S
+
+Check rollout status
+`kubectl rollout history deploy devsecops`
+
+Rollout status
+`kubectl rollout status deploy devsecops`
+
+Undo status
+`kubectl rollout undo deploy devsecops`
