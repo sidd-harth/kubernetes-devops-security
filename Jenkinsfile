@@ -4,7 +4,7 @@ pipeline {
     deploymentName = "devsecops"
     containerName = "devsecops-container"
     serviceName = "devsecops-svc"
-    imageName = "socool/numeric-app:${GIT_COMMIT}"
+    imageName = "socool/kubernetes-devops-security:{GIT_COMMIT}"
     applicationURL = "http://34.87.96.252:30040/"
     applicationURI = "/increment/99"
   }
@@ -101,5 +101,6 @@ pipeline {
              pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
              dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
        }
+       
     }
 }
