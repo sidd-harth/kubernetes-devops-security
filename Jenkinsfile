@@ -4,7 +4,7 @@ pipeline {
     deploymentName = "devsecops"
     containerName = "devsecops-container"
     serviceName = "devsecops-svc"
-    imageName = "socool/kubernetes-devops-security:${GIT_COMMIT}"
+    imageName = "bcorpse/numeric-app:${GIT_COMMIT}"
     applicationURL = "http://34.87.96.252:30040/"
     applicationURI = "/increment/99"
   }
