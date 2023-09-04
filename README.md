@@ -44,3 +44,32 @@ Rollout status
 
 Undo status
 `kubectl rollout undo deploy devsecops`
+
+Check Readonly Pod
+`kubectl get po [POD_NAME] -o yaml | grep -i readonly`
+normal
+
+```
+readOnly: true
+```
+
+fixed
+
+```
+f:readOnlyRootFilesystem: {}
+      readOnlyRootFilesystem: true
+      readOnly: true
+```
+
+test by using command
+(we can't)
+
+```
+kubectl exec -it [POD_NAME] -- touch /etc/hello
+```
+
+(we can)
+
+```
+kubectl exec -it [POD_NAME] -- touch /tmp/hello
+```
