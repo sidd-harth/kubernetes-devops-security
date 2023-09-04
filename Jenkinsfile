@@ -72,7 +72,7 @@ pipeline {
                 },
                 "Kubesec Scan": {
                   sh "bash kubesec-scan.sh"
-                }
+                },
                 "Trivy Scan": {
                   sh "bash trivy-docker-image-scan.sh"
                 },
