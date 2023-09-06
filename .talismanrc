@@ -15,4 +15,6 @@ fileignoreconfig:
   checksum: 9c510fba214f8e1ab385256c833ba2addae12836d549bc9d7d10d53b98ec2fa5
 - filename: zap.sh
   checksum: ad77f34192309b19c77d3cf3c7114a4710e98c71cd6aa86606841277cb5c9a15
+- filename: trivy-docker-image-scan.sh
+  checksum: 
 version: ""
