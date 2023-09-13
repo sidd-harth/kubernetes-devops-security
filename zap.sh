@@ -5,12 +5,12 @@ PORT=$(kubectl -n default get svc ${serviceName} -o json | jq .spec.ports[].node
 # first run this
 chmod 777 $(pwd)
 echo $(id -u):$(id -g)
-docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-api-scan.py -t $applicationURL:$PORT/v3/api-docs -f openapi -r zap_report.html
-
-exit_code=$?
+# docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-api-scan.py -t $applicationURL:$PORT/v3/api-docs -f openapi -r zap_report.html
 
 # comment above cmd and uncomment below lines to run with CUSTOM RULES
-# docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-api-scan.py -t $applicationURL:$PORT/v3/api-docs -f openapi -c zap-rules -w report.md -J json_report.json -r zap_report.html
+docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-api-scan.py -t $applicationURL:$PORT/v3/api-docs -f openapi -c zap_rules -w report.md -J json_report.json -r zap_report.html
+
+exit_code=$?
 
 # HTML Report
 sudo mkdir -p owasp-zap-report
@@ -24,3 +24,6 @@ if [[ ${exit_code} -ne 0 ]]; then
 else
 	echo "OWASP ZAP did not report any Risk"
 fi
+
+# Generate ConfigFile
+# docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-api-scan.py -t http://34.87.96.252:30040/v3/api-docs -f openapi -g gen_file
