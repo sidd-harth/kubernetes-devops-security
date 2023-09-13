@@ -2,15 +2,8 @@ fileignoreconfig:
 - filename: sec_files/file3
   checksum: a1c8618d00b59be4fba510e23115f9e8453075caee6648aa6fa4bb3d611049a9
 - filename: Jenkinsfile
-<<<<<<< Updated upstream
-  checksum: 
-=======
-<<<<<<< Updated upstream
   checksum: fa186cf8b59e14d61f1f91d73769d7de2bba2a7966f6e4b49f96ab699e764ea3
-=======
   checksum: 94890a62afa102eb510531f915e4c7b086368f9ff6e3897a065a15b1e37cd2e9
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 - filename: slack-emojis/jenkins.png
   checksum: c6d0ecaae50fbe031baf562ed13b9f608e800c10f8b97a40a3408e557d4d4ce5
 - filename: setup/azure-vm-template/template.json
@@ -22,7 +15,7 @@ fileignoreconfig:
 - filename: slack-emojis/deadpool.png
   checksum: 9c510fba214f8e1ab385256c833ba2addae12836d549bc9d7d10d53b98ec2fa5
 - filename: zap.sh
-  checksum: ad77f34192309b19c77d3cf3c7114a4710e98c71cd6aa86606841277cb5c9a15
+  checksum: 495a500608c1cd1f364f8a5c2212fc9bb22792df018339ac85dff14b0082be67
 - filename: trivy-docker-image-scan.sh
   checksum: 
 version: ""
