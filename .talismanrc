@@ -2,7 +2,15 @@ fileignoreconfig:
 - filename: sec_files/file3
   checksum: a1c8618d00b59be4fba510e23115f9e8453075caee6648aa6fa4bb3d611049a9
 - filename: Jenkinsfile
+<<<<<<< Updated upstream
+  checksum: 
+=======
+<<<<<<< Updated upstream
   checksum: fa186cf8b59e14d61f1f91d73769d7de2bba2a7966f6e4b49f96ab699e764ea3
+=======
+  checksum: 94890a62afa102eb510531f915e4c7b086368f9ff6e3897a065a15b1e37cd2e9
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 - filename: slack-emojis/jenkins.png
   checksum: c6d0ecaae50fbe031baf562ed13b9f608e800c10f8b97a40a3408e557d4d4ce5
 - filename: setup/azure-vm-template/template.json
