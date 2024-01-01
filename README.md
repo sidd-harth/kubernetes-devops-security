@@ -1,13 +1,12 @@
-#if you are going to install plugins using scripts, install js first
-sudo apt-get update
-sudo apt-get install jq
-
-
 # kubernetes-devops-security
 
 ## Fork and Clone this Repo
 
 ## Clone to Desktop and VM
+
+#**if you are going to install plugins using scripts, install js first**
+sudo apt-get update
+sudo apt-get install jq
 
 ## NodeJS Microservice - Docker Image -
 `docker run -p 8787:5000 siddharth67/node-service:v1`
