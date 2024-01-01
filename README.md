@@ -7,6 +7,7 @@
 #**if you are going to install plugins using scripts, install js first**
 
 sudo apt-get update
+
 sudo apt-get install jq
 
 ## NodeJS Microservice - Docker Image -
