@@ -4,6 +4,12 @@
 
 ## Clone to Desktop and VM
 
+# If you are going to install plugins using scripts, Install js first
+
+sudo apt-get update
+
+sudo apt-get install jq
+
 ## NodeJS Microservice - Docker Image -
 `docker run -p 8787:5000 siddharth67/node-service:v1`
 
