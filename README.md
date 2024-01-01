@@ -4,7 +4,7 @@
 
 ## Clone to Desktop and VM
 
-#**if you are going to install plugins using scripts, install js first**
+# If you are going to install plugins using scripts, Install js first
 
 sudo apt-get update
 
