@@ -14,5 +14,13 @@ pipeline {
         archiveArtifacts artifacts: 'target/*.jar', onlyIfSuccessful: true
       }
     }   
+
+
+    stage('Unit Tests') {
+      steps {
+        // Use environment variable for Maven options
+        sh 'mvn test'
+      }
+    } 
   }
 }
