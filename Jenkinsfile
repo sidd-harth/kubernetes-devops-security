@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Set JVM options for Maven
         MAVEN_OPTS = "--add-opens java.base/java.lang=ALL-UNNAMED"
-        AKS_CLUSTER_NAME = 'devsecops-aks'
+        AKS_CLUSTER_NAME = 'Devsecops-aks'
         NAMESPACE = 'default'
 
     }
