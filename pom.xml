@@ -137,12 +137,6 @@
 			<outputFormat>XML</outputFormat>
 		</outputFormats>
 	</configuration>
-	<!-- <executions>
-		<execution>
-			<id>pitest</id>
-			<phase>test</phase>
-		</execution>
-	</executions> -->
 </plugin>
 
 			

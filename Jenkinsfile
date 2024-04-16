@@ -36,7 +36,6 @@ pipeline {
         }
         post {
             always {
-                archiveArtifacts artifacts: 'target/pit-reports', onlyIfSuccessful: true
                 pitmutation mutationStatsFile: '**/pit-reports/**/mutations.xml'
             }
         }
