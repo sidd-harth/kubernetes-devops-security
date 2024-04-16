@@ -4,6 +4,9 @@ pipeline {
     environment {
         // Set JVM options for Maven
         MAVEN_OPTS = "--add-opens java.base/java.lang=ALL-UNNAMED"
+        AKS_CLUSTER_NAME = 'devsecops-aks'
+        NAMESPACE = 'default'
+
     }
 
     stages {
@@ -49,8 +52,9 @@ pipeline {
         stage('Kubernetes Deployment - DEV') {
             steps {
                 withKubeConfig([credentialsId: 'kubeconfig']) {
-                sh "sed -i 's#replace#manlikeabz/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-                sh "kubectl apply -f k8s_deployment_service.yaml"
+                      sh "kubectl config use-context ${AKS_CLUSTER_NAME}"
+                      sh "sed -i 's#replace#manlikeabz/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+                      sh "kubectl apply -f k8s_deployment_service.yaml"
                 }
             }
 
