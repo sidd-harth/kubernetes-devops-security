@@ -65,7 +65,85 @@
 				</execution>
 				</executions>
 			</plugin>
+		
+				<!-- JaCoCo plugin configuration -->
+				<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>0.8.5</version>
+						<executions>
+								<!-- Prepares the property pointing to the JaCoCo runtime agent which is passed as a VM argument when Maven the Surefire plugin is executed. -->
+								<execution>
+										<id>prepare-agent</id>
+										<goals>
+												<goal>prepare-agent</goal>
+										</goals>
+								</execution>
+								<!-- Ensures that the code coverage report for unit tests is created after tests have been run. -->
+								<execution>
+										<id>report</id>
+										<phase>test</phase>
+										<goals>
+												<goal>report</goal>
+										</goals>
+								</execution>
+								<!-- Example execution to enforce certain coverage checks during build. Uncomment and modify thresholds as necessary.
+								<execution>
+										<id>check</id>
+										<goals>
+												<goal>check</goal>
+										</goals>
+										<configuration>
+												<rules>
+														<rule>
+																<element>BUNDLE</element>
+																<limits>
+																		<limit>
+																				<counter>LINE</counter>
+																				<value>COVEREDRATIO</value>
+																				<minimum>0.80</minimum>
+																		</limit>
+																</limits>
+														</rule>
+												</rules>
+										</configuration>
+								</execution>
+								-->
+						</executions>
+						<configuration>
+								<!-- Configuration for the report goal -->
+								<outputDirectory>${project.build.directory}/jacoco-reports</outputDirectory>
+								<dataFile>${project.build.directory}/jacoco.exec</dataFile>
+						</configuration>
+				</plugin>
+				
 
+				
+<plugin>
+	<groupId>org.pitest</groupId>
+	<artifactId>pitest-maven</artifactId>
+	<version>1.5.0</version>
+	<dependencies>
+		<dependency>
+			<groupId>org.pitest</groupId>
+			<artifactId>pitest-junit5-plugin</artifactId>
+			<version>0.12</version>
+		</dependency>
+	</dependencies>
+	<configuration>
+		<mutationThreshold>70</mutationThreshold>
+		<outputFormats>
+			<outputFormat>HTML</outputFormat>
+			<outputFormat>XML</outputFormat>
+		</outputFormats>
+	</configuration>
+	<!-- <executions>
+		<execution>
+			<id>pitest</id>
+			<phase>test</phase>
+		</execution>
+	</executions> -->
+</plugin>
 
 			
 		</plugins>
