@@ -30,13 +30,24 @@ pipeline {
             }
         }
 
-    stage('Mutation Tests - PIT') {
-        steps {
-            sh 'mvn org.pitest:pitest-maven:mutationCoverage'
+        stage('Mutation Tests - PIT') {
+            steps {
+                sh 'mvn org.pitest:pitest-maven:mutationCoverage'
+            }
+            post {
+                always {
+                    pitmutation mutationStatsFile: '**/pit-reports/**/mutations.xml'
+                }
+            }
         }
-        post {
-            always {
-                pitmutation mutationStatsFile: '**/pit-reports/**/mutations.xml'
+    node {
+        stage('SonarQube - SAST') {
+            checkout scm
+        }
+        stage('SonarQube Analysis') {
+            def mvn = tool 'Default Maven';
+            withSonarQubeEnv() {
+                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application'"
             }
         }
     }
@@ -63,17 +74,15 @@ pipeline {
         stage('Kubernetes Deployment - DEV') {
             steps {
                 withKubeConfig([credentialsId: 'kubeconfig']) {
-                      sh "kubectl config use-context ${AKS_CLUSTER_NAME}"
-                      sh "sed -i 's#replace#manlikeabz/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-                      sh "kubectl apply -f k8s_deployment_service.yaml"
+                    sh "kubectl config use-context ${AKS_CLUSTER_NAME}"
+                    sh "sed -i 's#replace#manlikeabz/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+                    sh "kubectl apply -f k8s_deployment_service.yaml"
                 }
             }
-
-        }        
-
-
+        }
     }
 
+    
     post {
         always {
             // Cleanup after Docker to avoid logged in credentials hanging around
