@@ -40,14 +40,17 @@ pipeline {
                 }
             }
         }
-
         stage('SonarQube Analysis') {
-            def mvn = tool 'Default Maven';
-            withSonarQubeEnv() {
-                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application'"
+            steps {
+                // Using a script block to contain the non-step directive `def` and `withSonarQubeEnv`
+                script {
+                    def mvn = tool 'Default Maven'
+                    withSonarQubeEnv('sq1') {  // Make sure to specify your SonarQube environment if needed
+                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application'"
+                    }
+                }
             }
         }
-
         stage('Docker Build and Push') {
             steps {
                 script {
