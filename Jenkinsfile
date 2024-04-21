@@ -40,19 +40,13 @@ pipeline {
                 }
             }
         }
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def mvn = tool 'Default Maven'
-                    import hudson.plugins.sonar.SonarRunnerInstallation // Add this import statement
 
-                    withSonarQubeEnv('sq1') {  // Ensure the SonarQube environment is correctly named as configured in Jenkins
-                        // Using MAVEN_OPTS directly in the Maven command
-                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application' ${env.MAVEN_OPTS}"
-                    }
-                }
+        stage("SonarQube - SAST") {
+            steps {
+                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application' -Dsonar.host.url=http://devsecops-abzconsultancies.eastus.cloudapp.azure.com:9000 -Dsonar.token=squ_b0ffa602f401442384e12c06cbd73a66b51a7d2a"
             }
         }
+
         stage('Docker Build and Push') {
             steps {
                 script {
