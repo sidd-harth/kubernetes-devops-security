@@ -42,15 +42,16 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                // Using a script block to contain the non-step directive `def` and `withSonarQubeEnv`
                 script {
-                    // def mvn = tool 'Default Maven'
-                    withSonarQubeEnv('sq1') {  // Make sure to specify your SonarQube environment if needed
-                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application'"
+                    def mvn = tool 'Default Maven'
+                    withSonarQubeEnv('sq1') {  // Ensure the SonarQube environment is correctly named as configured in Jenkins
+                        // Using MAVEN_OPTS directly in the Maven command
+                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application' ${env.MAVEN_OPTS}"
                     }
                 }
             }
         }
+
         stage('Docker Build and Push') {
             steps {
                 script {
