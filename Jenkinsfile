@@ -66,11 +66,11 @@ pipeline {
             }
             post {
                 always {
-                    publishDependencyCheck pattern: 'target/dependency-check-report.xml'
+                    dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
                 }
             }
         }
-        
+
         stage('Docker Build and Push') {
             steps {
                 script {
