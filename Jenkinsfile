@@ -57,7 +57,7 @@ pipeline {
                             error "Quality gate not passed: ${qg.status}"
                     }
                 }
-            
+            }
         }
 
         stage('Docker Build and Push') {
