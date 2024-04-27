@@ -50,12 +50,14 @@ pipeline {
                     // Make sure the SonarQube scanner has finished before proceeding
                     
                 }
-                timeout(time: 2, unit: 'MINUTES') {
                     script {
-                        waitForQualityGate abortPipeline: true
+                         // It will wait indefinitely for the SonarQube analysis to complete
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Quality gate not passed: ${qg.status}"
                     }
                 }
-            }
+            
         }
 
         stage('Docker Build and Push') {
