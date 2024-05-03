@@ -9,10 +9,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-
-@SpringBootTest
+@SpringBootTest 
 @AutoConfigureMockMvc
 class NumericApplicationTests {
 
@@ -21,25 +18,25 @@ class NumericApplicationTests {
 
     @Test
     void smallerThanOrEqualToFiftyMessage() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/compare/50"))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/compare/50")) 
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isOk())
-                .andExpect(content().string("Smaller than or equal to 50"));
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Smaller than or equal to 50"));
     }
 
     @Test
     void greaterThanFiftyMessage() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/compare/51"))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/compare/51")) 
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isOk())
-                .andExpect(content().string("Greater than 50"));
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Greater than 50"));
     }
 
     @Test
     void welcomeMessage() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/")) 
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isOk())
-                .andExpect(content().string("Kubernetes DevSecOps"));
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Kubernetes DevSecOps"));
     }
 }
