@@ -5,7 +5,7 @@
 	<parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.1.1</version> <!-- Ensured compatibility with newer Java versions -->
+    <version>3.1.3</version> <!-- Updated to the latest version -->
 	</parent>
 
 	<groupId>com.devsecops</groupId>
@@ -17,7 +17,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>17</java.version> <!-- Updated to Java 17 for better compatibility -->
+		<java.version>17</java.version>
 	</properties>
 
 	<dependencies>
@@ -25,10 +25,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.15.1</version> <!-- Updated to the latest secure version -->
 		</dependency>
 
 		<dependency>
@@ -47,7 +53,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.7</version> <!-- Ensure compatibility with Java 17 -->
+				<version>0.8.7</version>
 				<executions>
 					<execution>
 						<id>prepare-agent</id>
@@ -67,12 +73,12 @@
 			<plugin>
 				<groupId>org.pitest</groupId>
 				<artifactId>pitest-maven</artifactId>
-				<version>1.7.0</version> <!-- Updated version for compatibility with Java 17 -->
+				<version>1.7.0</version> <!-- Assure compatibility with Java 17 -->
 				<dependencies>
 					<dependency>
 						<groupId>org.pitest</groupId>
 						<artifactId>pitest-junit5-plugin</artifactId>
-						<version>0.14</version> <!-- Updated to the latest version -->
+						<version>0.14</version>
 					</dependency>
 				</dependencies>
 				<configuration>
@@ -86,10 +92,10 @@
 			<plugin>
 				<groupId>org.owasp</groupId>
 				<artifactId>dependency-check-maven</artifactId>
-				<version>6.1.6</version>
+				<version>6.5.0</version> <!-- Update to the latest version -->
 				<configuration>
-					<failBuildOnCVSS>5</failBuildOnCVSS> 
-					<format>ALL</format> 
+					<failBuildOnCVSS>4</failBuildOnCVSS> 
+					<format>ALL</format>
 				</configuration>
 			</plugin>
 		</plugins>
