@@ -5,7 +5,7 @@
 	<parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.0.3</version> <relativePath />
+    <version>3.1.1</version> <!-- Updated to a newer version to address vulnerabilities -->
 	</parent>
 
 	<groupId>com.devsecops</groupId>
@@ -17,7 +17,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>1.8</java.version> <!-- Consider updating Java version if compatible -->
 	</properties>
 
 	<dependencies>
@@ -48,7 +48,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.7</version> <!-- Use the latest version where possible -->
+				<version>0.8.7</version> <!-- Ensure you are using the latest version -->
 				<executions>
 				<execution>
 					<id>prepare-agent</id>
