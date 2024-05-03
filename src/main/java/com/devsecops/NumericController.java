@@ -15,7 +15,6 @@ class NumericController {
     private static final String BASE_URL = "http://node-service:5000/plusone";
     private final RestTemplate restTemplate = new RestTemplate();
 
-    @RestController
     class Compare {
 
         @GetMapping("/")
@@ -42,10 +41,11 @@ class NumericController {
             }
         }
     }
-}
 
-class ResponseParseException extends RuntimeException {
-    ResponseParseException(String message, Throwable cause) {
-        super(message, cause);
+    // Make sure this exception class is within the same file and visible
+    static class ResponseParseException extends RuntimeException {
+        public ResponseParseException(String message, Throwable cause) {
+            super(message, cause);
+        }
     }
 }
