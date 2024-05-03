@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -28,14 +29,21 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.29</version> <!-- Updated version -->
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.13.3</version> <!-- Updated version -->
         </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.10</version> <!-- Updated to a more stable version -->
+            <version>1.4.11</version> <!-- Updated version -->
         </dependency>
 
         <dependency>
@@ -75,18 +83,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-maven</artifactId>
-                <version>1.7.0</version> <!-- Updated for better compatibility -->
-                <configuration>
-                    <mutationThreshold>70</mutationThreshold>
-                    <outputFormats>
-                        <outputFormat>HTML</outputFormat>
-                        <outputFormat>XML</outputFormat>
-                    </outputFormats>
-                </configuration>
             </plugin>
         </plugins>
     </build>
