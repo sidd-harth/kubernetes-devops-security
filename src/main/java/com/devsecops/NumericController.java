@@ -47,6 +47,7 @@ class NumericController {
     static class ResponseParseException extends RuntimeException {
         ResponseParseException(String message, Throwable cause) {
             super(message, cause);
+            // Optionally log here if more detail is needed across layers
         }
     }
 }
