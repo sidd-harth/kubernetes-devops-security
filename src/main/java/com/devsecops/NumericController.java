@@ -12,9 +12,7 @@ import org.springframework.web.client.RestTemplate;
 public class NumericController {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
-	private static final String baseURL = "http://node-service:5000/plusone";
-	// private static final String baseURL = "http://localhost:5000/plusone";
-	
+	private static final String BASE_URL = "http://node-service:5000/plusone";	
 	RestTemplate restTemplate = new RestTemplate();
 	
 	@RestController
@@ -38,7 +36,7 @@ public class NumericController {
 
 		@GetMapping("/increment/{value}")
 		public int increment(@PathVariable int value) {
-			ResponseEntity<String> responseEntity = restTemplate.getForEntity(baseURL + '/' + value, String.class);
+			ResponseEntity<String> responseEntity = restTemplate.getForEntity(BASE_URL + '/' + value, String.class);
 			String response = responseEntity.getBody();
 			logger.info("Value Received in Request - " + value);
 			logger.info("Node Service Response - " + response);
