@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-public class NumericController {
+class NumericController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private static final String BASE_URL = "http://node-service:5000/plusone";
     private final RestTemplate restTemplate = new RestTemplate();
 
     @RestController
-    public class Compare {
+    class Compare {
 
         @GetMapping("/")
         String welcome() {
@@ -44,8 +44,8 @@ public class NumericController {
     }
 
     // Custom exception class for handling response parse errors
-    public static class ResponseParseException extends RuntimeException {
-        public ResponseParseException(String message, Throwable cause) {
+    static class ResponseParseException extends RuntimeException {
+        ResponseParseException(String message, Throwable cause) {
             super(message, cause);
         }
     }
