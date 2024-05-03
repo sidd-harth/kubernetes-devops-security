@@ -5,7 +5,7 @@
 	<parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.1.1</version> <!-- Updated to a newer version to address vulnerabilities -->
+    <version>3.1.1</version> <!-- Ensured compatibility with newer Java versions -->
 	</parent>
 
 	<groupId>com.devsecops</groupId>
@@ -17,7 +17,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>17</java.version> <!-- Consider updating Java version if compatible -->
+		<java.version>17</java.version> <!-- Updated to Java 17 for better compatibility -->
 	</properties>
 
 	<dependencies>
@@ -26,7 +26,6 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -48,58 +47,51 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.7</version> <!-- Ensure you are using the latest version -->
+				<version>0.8.7</version> <!-- Ensure compatibility with Java 17 -->
 				<executions>
-				<execution>
-					<id>prepare-agent</id>
-					<goals>
-					<goal>prepare-agent</goal>
-					</goals>
-				</execution>
-				<execution>
-					<id>report</id>
-					<phase>test</phase>
-					<goals>
-					<goal>report</goal>
-					</goals>
-				</execution>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
 				</executions>
 			</plugin>
-	
-	
-				
-<plugin>
-	<groupId>org.pitest</groupId>
-	<artifactId>pitest-maven</artifactId>
-	<version>1.5.0</version>
-	<dependencies>
-		<dependency>
-			<groupId>org.pitest</groupId>
-			<artifactId>pitest-junit5-plugin</artifactId>
-			<version>0.12</version>
-		</dependency>
-	</dependencies>
-	<configuration>
-		<mutationThreshold>70</mutationThreshold>
-		<outputFormats>
-			<outputFormat>HTML</outputFormat>
-			<outputFormat>XML</outputFormat>
-		</outputFormats>
-	</configuration>
-</plugin>
-
-<plugin>
-    <groupId>org.owasp</groupId>
-    <artifactId>dependency-check-maven</artifactId>
-    <version>6.1.6</version>
-    <configuration>
-        <failBuildOnCVSS>5</failBuildOnCVSS> 
-        <format>ALL</format> 
-    </configuration>
-</plugin>
-
-			
+			<plugin>
+				<groupId>org.pitest</groupId>
+				<artifactId>pitest-maven</artifactId>
+				<version>1.7.0</version> <!-- Updated version for compatibility with Java 17 -->
+				<dependencies>
+					<dependency>
+						<groupId>org.pitest</groupId>
+						<artifactId>pitest-junit5-plugin</artifactId>
+						<version>0.14</version> <!-- Updated to the latest version -->
+					</dependency>
+				</dependencies>
+				<configuration>
+					<mutationThreshold>70</mutationThreshold>
+					<outputFormats>
+						<outputFormat>HTML</outputFormat>
+						<outputFormat>XML</outputFormat>
+					</outputFormats>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>6.1.6</version>
+				<configuration>
+					<failBuildOnCVSS>5</failBuildOnCVSS> 
+					<format>ALL</format> 
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>
