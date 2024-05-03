@@ -17,7 +17,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version> <!-- Consider updating Java version if compatible -->
+		<java.version>17</java.version> <!-- Consider updating Java version if compatible -->
 	</properties>
 
 	<dependencies>
