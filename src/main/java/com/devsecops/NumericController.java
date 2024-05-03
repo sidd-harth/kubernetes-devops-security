@@ -38,8 +38,14 @@ public class NumericController {
                 return Integer.parseInt(response);
             } catch (NumberFormatException e) {
                 logger.error("Error parsing response to integer", e);
-                throw new RuntimeException("Failed to parse the response from Node Service");
+                throw new ResponseParseException("Failed to parse the response from Node Service", e);
             }
+        }
+    }
+
+    public static class ResponseParseException extends RuntimeException {
+        public ResponseParseException(String message, Throwable cause) {
+            super(message, cause);
         }
     }
 }
