@@ -50,10 +50,13 @@
                         <param>com.devsecops.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>com.devsecops.tests*</param>
+                        <param>com.devsecops.tests.*</param> <!-- Corrected package name -->
                     </targetTests>
                     <mutationThreshold>70</mutationThreshold>
                     <timeoutConstant>4000</timeoutConstant>
+                    <outputFormats>
+                        <outputFormat>XML</outputFormat> <!-- Ensure XML format is specified -->
+                    </outputFormats>
                 </configuration>
             </plugin>
             <plugin>
