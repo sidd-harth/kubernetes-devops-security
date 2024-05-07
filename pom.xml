@@ -50,7 +50,7 @@
                         <param>com.devsecops.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>com.devsecops.tests.*</param> <!-- Corrected package name -->
+                        <param>com.devsecops.test.*</param> <!-- Corrected package name -->
                     </targetTests>
                     <mutationThreshold>70</mutationThreshold>
                     <timeoutConstant>4000</timeoutConstant>
