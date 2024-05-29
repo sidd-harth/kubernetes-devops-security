@@ -59,26 +59,30 @@ pipeline {
                 }
             }
         }
-        stage('Vulberability Scan - Docker') {
-          steps {
-            parallel(
-            script {
-                sh "mvn dependency-check:check"}
-            }
-            post {
-                always {
-                    dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+
+        stage('Vulnerability Scan - Docker') {
+            parallel {
+                "Maven Dependency Check": {
+                    steps {
+                        script {
+                            sh "mvn dependency-check:check"
+                        }
+                    }
+                    post {
+                        always {
+                            dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+                        }
+                    }
                 }
-            },
-            "Trivy Scan": {
-                steps {
-                    script {
-                        sh "bash trivy-docker-image-scan.sh"
-                        //trivy image --exit-code 0 --severity HIGH,CRITICAL manlikeabz/numeric-app:${GIT_COMMIT}
+                "Trivy Scan": {
+                    steps {
+                        script {
+                            sh "bash trivy-docker-image-scan.sh"
+                            //trivy image --exit-code 0 --severity HIGH,CRITICAL manlikeabz/numeric-app:${GIT_COMMIT}
+                        }
                     }
                 }
             }
-            )
         }
 
         stage('Docker Build and Push') {
