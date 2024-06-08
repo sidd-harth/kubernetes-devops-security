@@ -20,6 +20,7 @@ spec:
               name: devsecops-container
               securityContext:
                 runAsNonRoot: true
+                runAsUser: 100
               resources:
                 limits:
                   cpu: "1"
