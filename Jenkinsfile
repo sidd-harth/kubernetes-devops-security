@@ -3,6 +3,12 @@ pipeline {
 
     environment {
         // Set JVM options for Maven
+        deploymentName = "devsecops"
+        containerName = "devsecops-container"
+        serviceName = "devsecops-svc"
+        imageName = "manlikeabz/numeric-app:${GIT_COMMIT}"
+        applicationURL = "http://devsecops-abzconsultancies.eastus.cloudapp.azure.com/"
+        applicationURI = "/increment/99"
         MAVEN_OPTS = "--add-opens java.base/java.lang=ALL-UNNAMED"
         AKS_CLUSTER_NAME = 'Devsecops-aks'
         NAMESPACE = 'default'
@@ -117,13 +123,30 @@ pipeline {
             }
         }
 
-        stage('Kubernetes Deployment - DEV') {
-            steps {
-                withKubeConfig([credentialsId: 'kubeconfig']) {
-                    sh "kubectl config use-context ${AKS_CLUSTER_NAME}"
-                    sh "sed -i 's#replace#manlikeabz/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-                    sh "kubectl apply -f k8s_deployment_service.yaml"
+        // stage('Kubernetes Deployment - DEV') {
+        //     steps {
+        //         withKubeConfig([credentialsId: 'kubeconfig']) {
+        //             sh "kubectl config use-context ${AKS_CLUSTER_NAME}"
+        //             sh "sed -i 's#replace#manlikeabz/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+        //             sh "kubectl apply -f k8s_deployment_service.yaml"
+        //         }
+        //     }
+        // }
+
+        stage('K8s Deployment - Dev'){
+            steps{
+              parallel(
+                "Deploynment": {
+                  withKubeConfig([credentialsId: 'kubeconfig']) {
+                    sh "bash k8s-deployment.sh"
+                  }
+                },
+                "Rollout Status": {
+                  withKubeConfig([credentialsId: 'kubeconfig']) {
+                    sh "bash k8s-deployment-rollout-status.sh"
+                  }
                 }
+              )
             }
         }
     }
