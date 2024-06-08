@@ -2,53 +2,51 @@ package com.devsecops;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-public class NumericController {
+class NumericController {
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
-	private static final String baseURL = "http://node-service:5000/plusone";
-	
-	RestTemplate restTemplate = new RestTemplate();
-	
-	@RestController
-	public class compare {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final String BASE_URL = "http://node-service:5000/plusone";
+    private final RestTemplate restTemplate = new RestTemplate();
 
-		@GetMapping("/")
-		public String welcome() {
-			return "Kubernetes DevSecOps";
-		}
+    @RestController
+    class Compare {
 
-		@GetMapping("/compare/{value}")
-		public String compareToFifty(@PathVariable int value) {
-			String message = "Could not determine comparison";
-			if (value > 50) {
-				message = "Greater than 50";
-			} else {
-				message = "Smaller than or equal to 50";
-			}
-			return message;
-		}
+        @GetMapping("/")
+        String welcome() {
+            return "Kubernetes DevSecOps";
+        }
 
-		@GetMapping("/increment/{value}")
-		public int increment(@PathVariable int value) {
-			ResponseEntity<String> responseEntity = restTemplate.getForEntity(baseURL + '/' + value, String.class);
-			String response = responseEntity.getBody();
-			logger.info("Value Received in Request - " + value);
-			logger.info("Node Service Response - " + response);
-			return Integer.parseInt(response);
-		}
-	}
+        @GetMapping("/compare/{value}")
+        String compareToFifty(@PathVariable int value) {
+            return value > 50 ? "Greater than 50" : "Smaller than or equal to 50";
+        }
 
+        @GetMapping("/increment/{value}")
+        int increment(@PathVariable int value) {
+            try {
+                ResponseEntity<String> responseEntity = restTemplate.getForEntity(BASE_URL + '/' + value, String.class);
+                String response = responseEntity.getBody();
+                logger.info("Value Received in Request - {}", value);
+                logger.info("Node Service Response - {}", response);
+                return Integer.parseInt(response);
+            } catch (NumberFormatException e) {
+                logger.error("Error parsing response to integer. Value received: {}, Error: {}", value, e.getMessage());
+                throw new ResponseParseException("Failed to parse the response from Node Service for value: " + value, e);
+            }
+        }
+    }
+
+    // Custom exception class for handling response parse errors
+    static class ResponseParseException extends RuntimeException {
+        ResponseParseException(String message, Throwable cause) {
+            super(message, cause);
+        }
+    }
 }
