@@ -18,6 +18,8 @@ spec:
             containers:
             - image: replace
               name: devsecops-container
+              securityContext:
+                runAsNonRoot: true
               resources:
                 limits:
                   cpu: "1"
