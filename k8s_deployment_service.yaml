@@ -15,19 +15,20 @@ spec:
       labels:
         app: devsecops
     spec:
-            containers:
-            - image: replace
-              name: devsecops-container
-              securityContext:
-                runAsNonRoot: true
-                runAsUser: 100
-              resources:
-                limits:
-                  cpu: "1"
-                  memory: "1Gi"
-                requests:
-                  cpu: "100m"
-                  memory: "256Mi"
+      serviceAccount: default
+      containers:
+      - image: replace
+        name: devsecops-container
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 100
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
