@@ -6,7 +6,6 @@ pipeline {
         MAVEN_OPTS = "--add-opens java.base/java.lang=ALL-UNNAMED"
         AKS_CLUSTER_NAME = 'Devsecops-aks'
         NAMESPACE = 'default'
-
     }
 
     stages {
@@ -16,7 +15,7 @@ pipeline {
                 sh 'mvn clean package -DskipTests=true'
                 archiveArtifacts artifacts: 'target/*.jar', onlyIfSuccessful: true
             }
-        }   
+        }
 
         stage('Unit Tests - JUnit and Jacoco') {
             steps {
@@ -41,20 +40,17 @@ pipeline {
             }
         }
 
-
-
         stage('SonarQube - SAST') {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecops-abzconsultancies.eastus.cloudapp.azure.com:9000 -Dsonar.token=squ_b0ffa602f401442384e12c06cbd73a66b51a7d2a"
                     // Make sure the SonarQube scanner has finished before proceeding
-                    
                 }
-                    script {
-                         // It will wait indefinitely for the SonarQube analysis to complete
-                        def qg = waitForQualityGate()
-                        if (qg.status != 'OK') {
-                            error "Quality gate not passed: ${qg.status}"
+                script {
+                    // It will wait indefinitely for the SonarQube analysis to complete
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Quality gate not passed: ${qg.status}"
                     }
                 }
             }
@@ -82,9 +78,16 @@ pipeline {
                         }
                     }
                 }
+                stage('OPA Conftest') {
+                    steps {
+                        script {
+                            // Run OPA Conftest against the Dockerfile
+                            sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-docker-security.rego Dockerfile'
+                        }
+                    }
+                }
             }
         }
-
 
         stage('Docker Build and Push') {
             steps {
@@ -96,7 +99,7 @@ pipeline {
                     // Docker login using credentials securely
                     withDockerRegistry([credentialsId: "90cf476e-ad01-40fe-86fa-4b0599ac41ff", url: ""]) {
                         sh "printenv"
-                        
+
                         // Docker build and push commands
                         sh "docker build -t manlikeabz/numeric-app:${GIT_COMMIT} ."
                         sh "docker push manlikeabz/numeric-app:${GIT_COMMIT}"
@@ -116,7 +119,6 @@ pipeline {
         }
     }
 
-    
     post {
         always {
             // Cleanup after Docker to avoid logged in credentials hanging around
