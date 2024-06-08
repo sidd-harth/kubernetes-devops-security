@@ -150,6 +150,22 @@ pipeline {
         //     }
         // }
 
+        stage('Integration Tests - DEV') {
+            steps {
+                script {
+                  try {
+                    withKubeConfig([credentialsId: 'kubeconfig']) {
+                      sh "bash integration-tests.sh"
+                    }
+                  } catch (Exception e) {
+                    withKubeConfig([credentialsId: 'kubeconfig']) {
+                      sh "kubectl rollout undo deployment ${deploymentName}"
+                    }
+                    throw e  
+                }
+            }
+        }
+
         stage('K8s Deployment - Dev'){
             steps{
               parallel(
