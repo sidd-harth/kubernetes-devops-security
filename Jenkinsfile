@@ -114,12 +114,29 @@ pipeline {
             }
         }
 
-        stage('Vulneability Scan - Kubernetes') {
+        // stage('Vulneability Scan - Kubernetes') {
+        //     steps {
+        //         script {
+        //             // Run OPA Conftest scan against the Kubernetes deployment file
+        //             sh "docker run --rm -v $pwd:/project openpolicyagent/conftest test --policy opa-k8s-security.rego k8s_deployment_service.yaml"
+        //         }
+        //     }
+        // }
+
+        stage('Vulnerability Scan - Kubernetes') {
             steps {
-                script {
-                    // Run OPA Conftest scan against the Kubernetes deployment file
-                    sh "docker run --rm -v $pwd:/project openpolicyagent/conftest test --policy opa-k8s-security.rego k8s_deployment_service.yaml"
-                }
+                parallel(
+                    "OPA Scan": {
+                        script {
+                            // Run OPA Conftest scan against the Kubernetes deployment file
+                            sh "docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-k8s-security.rego k8s_deployment_service.yaml"
+                        }
+                    },
+                    "Kubesec Scan": {
+                        sh "bsh kubesec-scan.sh"
+                    }
+                    }
+                )
             }
         }
 
