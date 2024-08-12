@@ -26,3 +26,4 @@ bin
 .classpath
 .project
 target
+.vscode
