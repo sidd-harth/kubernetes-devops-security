@@ -19,10 +19,10 @@ pipeline {
     }
     stage("Docker version check"){
       steps{
-          withDockerRegistry(credentialsId: 'dockerreg', url: '') {
-            docker build -t markmama/spring:${env.BUILD_ID}
-            docker push markmama/spring:${env.BUILD_ID}
-          }
+        withDockerRegistry(credentialsId: 'dockerreg', url: '') {
+           docker build -t markmama/spring:${env.BUILD_ID}
+           docker push markmama/spring:${env.BUILD_ID}
+        }
       }
     }
   }
