@@ -20,10 +20,8 @@ pipeline {
     stage("Docker version check"){
       steps{
         withDockerRegistry(credentialsId: 'dockerreg', url: '') {
-        sh """
-           docker build -t markmama/spring:${env.BUILD_ID} .
-           docker push markmama/spring:${env.BUILD_ID}
-        """   
+            image = docker.build("markmama/spring:$BUILD_NUMBER")
+            image.push()
         }
       }
     }
