@@ -12,17 +12,20 @@ pipeline {
         archive 'target/*.jar' //so that they can be downloaded later
       }
     }
-    stage('Kube-version check') {
+    stage('Coverage Test') {
       steps {
-        withEnv(['KUBECONFIG=/home/jenkins/.kube/config']) {
-          sh "kubectl get all"
-        }
+        sh 'mvn test'
       }
     }
     stage("Docker version check"){
       steps{
-          sh "docker version"
+          withDockerRegistry(credentialsId: 'dockerreg', url: '') {
+            docker build -t markmama/spring:${env.BUILD_ID}
+            docker push markmama/spring:${env.BUILD_ID}
+          }
       }
     }
   }
 }
+
+
