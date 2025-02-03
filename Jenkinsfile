@@ -19,9 +19,11 @@ pipeline {
     }
     stage("Docker version check"){
       steps{
-        withDockerRegistry(credentialsId: 'dockerreg', url: '') {
-            image = docker.build("markmama/spring:$BUILD_NUMBER")
-            image.push()
+        script{
+            withDockerRegistry(credentialsId: 'dockerreg', url: '') {
+                image = docker.build("markmama/spring:$BUILD_NUMBER")
+                image.push()
+            }
         }
       }
     }
