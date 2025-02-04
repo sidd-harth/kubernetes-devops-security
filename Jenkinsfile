@@ -32,7 +32,8 @@ pipeline {
             branch 'feature/*'
         }
         steps{
-            sh "helm upgrade --install k8-ops  --set image1.tag="$BUILD_NUMBER" k8-sec/"
+            script{}
+            sh "helm upgrade --install k8-ops  --set image1.tag=$BUILD_NUMBER k8-sec/"
         }
         
     }
