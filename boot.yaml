@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: spring-deploy
-          image: docker pull markmama/spring:12
+          image: markmama/spring:12
           ports:
             - containerPort: 8080
 ---

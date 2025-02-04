@@ -27,5 +27,13 @@ pipeline {
         }
       }
     }
+    stage("Helm Deploy to Local Cluster"){
+        when{
+            branch 'feature/*'
+            script{
+                helm upgrade --install k8-ops  --set image1.tag="$BUILD_NUMBER" k8-sec/
+            }
+        }
+    }
   }
 }

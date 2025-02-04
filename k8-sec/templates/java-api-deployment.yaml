@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  {{ .Release.Name }}-spring-deploy
+  namespace: {{ .Values.namespace }}
+  labels: 
+    app: {{ .Chart.Name }}-spring
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}-spring
+  template:
+    metadata:
+      name: {{ .Release.Name }}-spring-deploy
+      labels:
+        app: {{ .Chart.Name }}-spring
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-spring-deploy
+          image: {{ .Values.image1.repository}}:{{ .Values.image1.tag }}
+          imagePullPolicy: {{ .Values.image1.pullPolicy }}
+          ports:
+            - containerPort: 8080

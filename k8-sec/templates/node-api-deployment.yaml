@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: {{ .Release.Name }}-node-deploy
+  labels:
+    app: {{ .Chart.Name }}-node-deploy
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}-node-deploy
+  template:
+    metadata:
+      name: {{ .Release.Name }}-node-deploy
+      labels:
+        app: {{ .Chart.Name }}-node-deploy
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-node-deploy
+          image: {{ .Values.image2.repository }}:{{ .Values.image2.tag }}
+          imagePullPolicy: {{ .Values.image1.pullPolicy }}
+          ports:
+            - containerPort: 5000
