@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: spring 
+  name: node-deploy
+  labels:
+    app: node-deploy
+spec:
+  selector:
+    matchLabels:
+      app: node-deploy
+  template:
+    metadata:
+      name: node-deploy
+      labels:
+        app: node-deploy
+    spec:
+      containers:
+        - name: node-deploy
+          image: siddharth67/node-service:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-service
+  namespace: spring
+  labels:
+    app: node-service
+spec:
+  selector:
+      app: node-deploy
+  ports:
+    - port: 5000
+      targetPort: 5000
+  type: ClusterIP
+
+
+
+    
