@@ -1,55 +1,71 @@
 pipeline {
-  agent any
+    agent any
 
-  stages {
-      stage('Build Artifact') {
+    stages {
+        stage('Build Artifact') {
             steps {
-              sh "mvn clean package -DskipTests=true"
-              archive 'target/*.jar' 
+                sh "mvn clean package -DskipTests=true"
+                archive 'target/*.jar' 
             }
         }
 
-      stage("Unit Test") {
-          steps {
-              sh "mvn test"
-          }
-          post {
-              always {
-                  junit 'target/surefire-reports/*.xml'
-                  jacoco(execPattern: 'target/jacoco.exec')
-              }
-          }
-      }
+        stage("Unit Test") {
+            steps {
+                sh "mvn test"
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                    jacoco(execPattern: 'target/jacoco.exec')
+                }
+            }
+        }
 
-      stage('Mutation Tests - PIT') {
-          steps {
-              sh "mvn org.pitest:pitest-maven:mutationCoverage"
-          }
-          post {
-              always {
-                  pitmutation mutationStatsFile: '**target/pit-reports/**/mutations.xml'
-              }
-          }
-      }
+        stage('Mutation Tests - PIT') {
+            steps {
+                sh "mvn org.pitest:pitest-maven:mutationCoverage"
+            }
+            post {
+                always {
+                    pitmutation mutationStatsFile: '**target/pit-reports/**/mutations.xml'
+                }
+            }
+        }
 
+        // stage('SonarQube  - SAST') {
+        //     steps {
+        //         checkout scm
+        //     }
+        // }
 
-      stage('Dockker Build and Push') {
-          steps {
-              withDockerRegistry([credentialsId: 'dockerhub', url: '']) {
-              sh 'printenv'
-              sh 'docker build -t suhailsap06/numeric-app:""$GIT_COMMIT"" .'
-              sh 'docker push suhailsap06/numeric-app:""$GIT_COMMIT""'
-          }
-      }
-    }
+        stage('SonarQube - SAST') {
+            steps {
+                script {
+                    def mvn = tool 'Maven 3.8'
+                    withSonarQubeEnv() {
+                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application'"
+                    }
+                }
+            }
+        }
+
+        stage('Docker Build and Push') {
+            steps {
+                withDockerRegistry([credentialsId: 'dockerhub', url: '']) {
+                    sh 'printenv'
+                    sh 'docker build -t suhailsap06/numeric-app:"$GIT_COMMIT" .'
+                    sh 'docker push suhailsap06/numeric-app:"$GIT_COMMIT"'
+                }
+            }
+        }
 
         stage('Kubernetes Deployment - Dev') {
             steps {
                 withKubeConfig([credentialsId: 'kubeconfig']) {
-                sh "sed -i 's#replace#suhailsap06/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-                sh 'kubectl apply -f k8s_deployment_service.yaml'
-              }
-          }
-      }
-  }
+                    sh "sed -i 's#replace#suhailsap06/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+                    sh 'kubectl apply -f k8s_deployment_service.yaml'
+                }
+            }
+        }
+    }
 }
