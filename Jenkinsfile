@@ -5,7 +5,7 @@ pipeline {
         stage('Build Artifact') {
             steps {
                 sh "mvn clean package -DskipTests=true"
-                archive 'target/*.jar' 
+                archive 'target/*.jar'
             }
         }
 
@@ -32,19 +32,17 @@ pipeline {
             }
         }
 
-        // stage('SonarQube  - SAST') {
-        //     steps {
-        //         checkout scm
-        //     }
-        // }
-
         stage('SonarQube - SAST') {
             steps {
-                    withSonarQubeEnv('SonarQube') {
-                        sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application'"
-                    }
+                withSonarQubeEnv('SonarQube') {
+                    sh """mvn clean verify sonar:sonar \
+                        -Dsonar.projectKey=numeric-application \
+                        -Dsonar.projectName='numeric-application' \
+                        -Dsonar.host.url=http://devsecops-k8.eastus.cloudapp.azure.com:9000 \
+                        -Dsonar.token=sqp_a769d2b7ec8dad1c3f39af8100d5e8bea63f86db"""
                 }
             }
+        }
 
         stage('Docker Build and Push') {
             steps {
