@@ -32,11 +32,11 @@ pipeline {
             }
         }
 
-        // stage('SonarQube  - SAST') {
-        //     steps {
-        //         checkout scm
-        //     }
-        // }
+        stage('SonarQube  - SAST') {
+            steps {
+                checkout scm
+            }
+        }
 
         stage('SonarQube - SAST') {
             steps {
