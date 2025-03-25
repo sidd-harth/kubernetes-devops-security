@@ -13,13 +13,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class NumericApplicationTests {
+class NumericApplicationTests { // Removed 'public'
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void smallerThanOrEqualToFiftyMessage() throws Exception {
+    void smallerThanOrEqualToFiftyMessage() throws Exception { // Removed 'public'
         this.mockMvc.perform(get("/compare/50"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -27,7 +27,7 @@ public class NumericApplicationTests {
     }
 
     @Test
-    public void greaterThanFiftyMessage() throws Exception {
+    void greaterThanFiftyMessage() throws Exception { // Removed 'public'
         this.mockMvc.perform(get("/compare/51"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -35,7 +35,7 @@ public class NumericApplicationTests {
     }
     
     @Test
-    public void welcomeMessage() throws Exception {
+    void welcomeMessage() throws Exception { // Removed 'public'
         this.mockMvc.perform(get("/"))
                 .andDo(print())
                 .andExpect(status().isOk())
