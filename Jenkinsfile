@@ -36,6 +36,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh """mvn clean verify sonar:sonar \
+                        -mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar\
                         -Dsonar.projectKey=numeric-application \
                         -Dsonar.projectName='numeric-application' \
                         -Dsonar.host.url=http://devsecops-k8.eastus.cloudapp.azure.com:9000 \
