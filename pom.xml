@@ -21,6 +21,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        
+        <!-- SonarQube configuration -->
+        <sonar.projectKey>numeric-application</sonar.projectKey>
+        <sonar.projectName>numeric-application</sonar.projectName>
+        <sonar.host.url>http://devsecops-k8.eastus.cloudapp.azure.com:9000</sonar.host.url>
+        <sonar.token>sqp_ef2005110434e56499619798f7e2c3e072e1f5b9</sonar.token>
     </properties>
     
     <dependencies>
@@ -41,7 +47,8 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- SonarQube Plugin Dependency -->
+        <!-- SonarQube Plugin Dependency (SonarQube Maven plugin already included in the build section) -->
+        <!-- This is optional if you want to include it in dependencies as well -->
         <dependency>
             <groupId>org.sonarsource.scanner.maven</groupId>
             <artifactId>sonar-maven-plugin</artifactId>
@@ -104,6 +111,19 @@
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>5.1.0.4751</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>sonar</goal>
+                        </goals>
+                        <configuration>
+                            <sonar.projectKey>numeric-application</sonar.projectKey>
+                            <sonar.projectName>numeric-application</sonar.projectName>
+                            <sonar.host.url>http://devsecops-k8.eastus.cloudapp.azure.com:9000</sonar.host.url>
+                            <sonar.token>sqp_ef2005110434e56499619798f7e2c3e072e1f5b9</sonar.token>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
