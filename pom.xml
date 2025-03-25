@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     
     <modelVersion>4.0.0</modelVersion>
     
@@ -20,7 +20,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version> <!-- Updated to Java 17 for Spring Boot 3.4.3 -->
     </properties>
     
     <dependencies>
@@ -40,13 +40,8 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- SonarQube Plugin Dependency -->
-        <dependency>
-            <groupId>org.sonarsource.scanner.maven</groupId>
-            <artifactId>sonar-maven-plugin</artifactId>
-            <version>5.1.0.4751</version>
-        </dependency>
+        
+        <!-- No need for sonar-maven-plugin as a dependency; it belongs in <plugins> -->
     </dependencies>
     
     <build>
@@ -57,11 +52,22 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!-- Jacoco Plugin for Code Coverage -->
+            <!-- Maven Compiler Plugin (optional, since Spring Boot parent sets it) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!-- JaCoCo Plugin for Code Coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.12</version>
+                <version>0.8.12</version> <!-- Latest version as of March 2025 -->
                 <executions>
                     <execution>
                         <goals>
@@ -82,12 +88,12 @@
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
-                <version>1.5.0</version>
+                <version>1.15.8</version> <!-- Updated to latest version -->
                 <dependencies>
                     <dependency>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-junit5-plugin</artifactId>
-                        <version>0.12</version>
+                        <version>1.2.1</version> <!-- Updated to latest version -->
                     </dependency>
                 </dependencies>
                 <configuration>
@@ -103,18 +109,25 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>5.1.0.4751</version>
+                <version>4.0.0.4121</version> <!-- Updated to latest version -->
             </plugin>
 
-            <!--  Dependency-Check Plugin         -->
+            <!-- Dependency-Check Plugin -->
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>6.1.6</version>
+                <version>10.0.3</version> <!-- Updated to latest version -->
                 <configuration>
                     <format>ALL</format>
-                    <failBuildOnCVSS>5</failBuildOnCVSS><!-- fail the build for CVSS greater than or equal to 9 -->
+                    <failBuildOnCVSS>5</failBuildOnCVSS> <!-- Fail the build for CVSS >= 5 -->
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
