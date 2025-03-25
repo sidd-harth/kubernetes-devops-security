@@ -36,12 +36,11 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh """mvn clean verify sonar:sonar \
-                        -mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar\
                         -Dsonar.projectKey=numeric-application \
                         -Dsonar.projectName='numeric-application' \
                         -Dsonar.host.url=http://devsecops-k8.eastus.cloudapp.azure.com:9000 \
-                        -Dsonar.token=sqp_ef2005110434e56499619798f7e2c3e072e1f5b9
-                        """
+                        -Dsonar.token=sqp_ef2005110434e56499619798f7e2c3e072e1f5b9 \
+                        -Dsonar.sources=src"""
                 }
                 timeout(time: 1, unit: 'MINUTES') {
                     script {
