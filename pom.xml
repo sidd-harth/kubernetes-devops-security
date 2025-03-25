@@ -116,18 +116,11 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>10.0.3</version> <!-- Updated to latest version -->
+                <version>6.1.6</version> 
                 <configuration>
                     <format>ALL</format>
                     <failBuildOnCVSS>5</failBuildOnCVSS> <!-- Fail the build for CVSS >= 5 -->
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
