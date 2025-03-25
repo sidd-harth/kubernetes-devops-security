@@ -114,21 +114,6 @@
                 <configuration>
                     <format>ALL</format>
                     <failBuildOnCVSS>5</failBuildOnCVSS><!-- fail the build for CVSS greater than or equal to 9 -->
-
-			     <!-- 
-			      use internal mirroring of CVE contents 
-			      Suppress files 
-			      E.g. a company-wide suppression file and local project file 
-			     -->
-			     <!-- 
-			     <cveUrlModified>http://internal-mirror.mycorp.com/nvdcve-1.1-modified.json.gz</cveUrlModified>  
-			                    <cveUrlBase>http://internal-mirror.mycorp.com/nvdcve-1.1-%d.json.gz</cveUrlBase>
-			     <suppressionFiles>               
-			                        <suppressionFile>http://example.org/suppression.xml</suppressionFile>
-			                        <suppressionFile>project-suppression.xml</suppressionFile> 
-			                    </suppressionFiles> 
-			                 -->
-
                 </configuration>
             </plugin>
         </plugins>
