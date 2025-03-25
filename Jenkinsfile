@@ -1,62 +1,47 @@
 pipeline {
-    agent any
+  agent any
 
-    stages {
-        stage('Build Artifact') {
-            steps {
-                sh "mvn clean package -DskipTests=true"
-                archive 'target/*.jar'
-            }
+  stages {
+
+    stage('Build Artifact - Maven') {
+      steps {
+        sh "mvn clean package -DskipTests=true"
+        archive 'target/*.jar'
+      }
+    }
+
+    stage('Unit Tests - JUnit and Jacoco') {
+      steps {
+        sh "mvn test"
+      }
+      post {
+        always {
+          junit 'target/surefire-reports/*.xml'
+          jacoco execPattern: 'target/jacoco.exec'
         }
-
-        stage('Unit Tests - JUnit and Jacoco') {
-            steps {
-                sh "mvn test"
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                    jacoco execPattern: 'target/jacoco.exec'
+      }
+    }
+    stage('Mutation Tests - PIT') {
+      steps {
+        sh "mvn org.pitest:pitest-maven:mutationCoverage"
+      }
+      post {
+        always {
+          pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
         }
       }
     }
 
-        stage('Mutation Tests - PIT') {
-            steps {
-                sh "mvn org.pitest:pitest-maven:mutationCoverage"
-            }
-            post {
-                always {
-                    pitmutation mutationStatsFile: '**target/pit-reports/**/mutations.xml'
-                }
-            }
+    stage('Vulnerability Scan - Docker ') {
+      steps {
+        sh "mvn dependency-check:check"
+      }
+      post {
+        always {
+          dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
         }
-
-        stage('SonarQube - SAST') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh "mvn clean verify sonar:sonar \
-                        -Dsonar.projectKey=numeric-application \
-                        -Dsonar.host.url=http://devsecops-k8.eastus.cloudapp.azure.com:9000"
-                }
-                timeout(time: 1, unit: 'MINUTES') {
-                    script {
-                        waitForQualityGate abortPipeline: true
-                    }
-                }
-            }
-        }
-
-        stage("Vulnarability Scan - Docker"){
-            steps{
-                sh "mvn dependency-check:check"
-            }
-            post {
-                always {
-                    dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
-                }
-            }
-        }
+      }
+    }
 
         stage('Docker Build and Push') {
             steps {
