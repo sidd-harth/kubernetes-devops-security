@@ -10,7 +10,7 @@ apt-get autoremove -y  #removes the packages that are no longer needed
 apt-get update
 systemctl daemon-reload
 
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
 deb http://apt.kubernetes.io/ kubernetes-xenial main
 EOF
