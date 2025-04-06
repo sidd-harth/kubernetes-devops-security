@@ -10,15 +10,22 @@ apt-get autoremove -y  #removes the packages that are no longer needed
 apt-get update
 systemctl daemon-reload
 
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
-deb http://apt.kubernetes.io/ kubernetes-xenial main
-EOF
+# Updated Kubernetes repository setup
+curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
 KUBE_VERSION=1.20.0
 apt-get update
-apt-get install -y docker.io vim build-essential jq python3-pip kubelet=${KUBE_VERSION}-00 kubectl=${KUBE_VERSION}-00 kubernetes-cni=0.8.7-00 kubeadm=${KUBE_VERSION}-00
+apt-get install -y docker.io vim build-essential jq python3-pip \
+    kubelet=${KUBE_VERSION}-00 \
+    kubectl=${KUBE_VERSION}-00 \
+    kubeadm=${KUBE_VERSION}-00 \
+    --allow-unauthenticated
 pip3 install jc
+
+# Proper kubelet service setup
+systemctl unmask kubelet
+systemctl enable --now kubelet
 
 ### UUID of VM 
 ### comment below line if this Script is not executed on Cloud based VMs
@@ -40,7 +47,7 @@ systemctl enable kubelet
 systemctl start kubelet
 
 echo ".........----------------#################._.-.-KUBERNETES-.-._.#################----------------........."
-rm /root/.kube/config
+#rm /root/.kube/config
 kubeadm reset -f
 
 # uncomment below line if your host doesnt have minimum requirement of 2 CPU
@@ -77,7 +84,7 @@ sudo apt install -y jenkins
 systemctl daemon-reload
 systemctl enable jenkins
 sudo systemctl start jenkins
-#sudo systemctl status jenkins
+sudo systemctl status jenkins
 sudo usermod -a -G docker jenkins
 echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
